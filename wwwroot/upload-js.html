@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+            <meta charset="UTF-8">
+            <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+            <title>sample</title>
+</head>
+<body>
+
+            <input class="fileInput" type="file" /><br>
+            <img src="" alt="" />
+            <script>
+
+
+            var account = 'kandori';
+            var container = 'kandori-container';
+            var sas = 'abcdef';
+
+
+                $('.fileInput').change(function(){
+                    // 1. 選択されたファイルがない場合は何もせずにreturn
+                    if (!this.files.length) {
+                        return;
+                    }
+     
+                    var file = this.files[0],            // 2. files配列にファイルが入っています
+                        $_img = $(this).siblings('img'), // 3. jQueryのsiblingsメソッドで兄弟のimgを取得
+                        fileReader = new FileReader();   // 4. ファイルを読み込むFileReaderオブジェクト
+     
+                    // 5. 読み込みが完了した際のイベントハンドラ。サーバにデータを送信
+                    fileReader.onload = function(event) {
+                        $.ajax({
+
+                        url: 'https://'
+                           + account
+                           + '.blob.core.windows.net/'
+                           + container + '/'
+                           + file.name,
+                        type: "PUT",
+                        data: new Uint8Array(e2.target.result),
+                        contentType: file.type,
+                        headers: {
+                            'x-ms-blob-type' : 'BlockBlob',
+                        },
+                        processData: false,
+
+                        });
+                    };
+     
+                    // 6. 画像読み込み
+                    fileReader.readAsArrayBuffer(file);
+                });
+            </script>
+</body>
+</html>

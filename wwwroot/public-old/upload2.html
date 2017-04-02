@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>File Upload</title>
+
+<script
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+</script>
+
+<script type="text/javascript">
+$(function () {
+    window.addEventListener('dragover', function (event) {
+        event.preventDefault();
+    }, false);
+
+    // ドロップ時のイベント
+    document.getElementById('dragArea').addEventListener('drop', function (event) {
+        event.preventDefault();
+        var dt = event.dataTransfer;
+        // メッセージエリアのメッセージをクリア
+        result = $('#result');
+        result.html('');
+        /// ドロップされたファイルを順次送信
+        for (var i = 0; i < dt.files.length; i++) {
+            upload(dt.files[i], i);
+        }
+    }, false);
+
+    // ファイルアップロード
+    function upload(file, num) {
+        var f_id = 'filename_'+ num;
+        var p_id = 'progress_'+ num;
+        $('#result').append('<div><span id="'+ f_id + '">' + file.name + '</span><progress id="'+ p_id +'" value="0" max="100">0%</progress></div>');
+ 
+        // データを送信する
+        var fd = new FormData();
+        fd.append("userfile", file, file.name);
+        // ajaxを使用してアップロード
+        $.ajax('upload.php', {
+            xhr : function() {
+                XHR = $.ajaxSettings.xhr();
+                if (XHR.upload) {
+                    XHR.upload.addEventListener('progress',
+                            function(e) {
+                                progre = parseInt(e.loaded / e.total * 10000) / 100;
+                                console.log(progre + "%");
+                                document.getElementById(p_id).value = progre;
+                                document.getElementById(p_id).innerHTML = progre + '%';
+                            }, false);
+                }
+                return XHR;
+            },
+            method: 'POST',
+            contentType: false,
+            processData: false,
+            data: fd,
+            dataType: 'json',
+            success: function (data) {
+                var msg = "Success";
+                if(data['FLG'] == false){
+                    msg = "Failure";
+                }
+                document.getElementById(f_id).innerHTML = file.name + ":" + msg
+            }
+        });
+    }
+});
+</script>
+
+<style type="text/css">
+#dragArea {
+    border: solid 1px #000000;
+    background-color: #cccccc;
+    width: 100px;
+    height: 100px;
+}
+</style>
+
+</head>
+
+<body>
+    <div id="dragArea">Drag File here!</div>
+    <div id="result"></div>
+</body>
