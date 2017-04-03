@@ -14,7 +14,7 @@ $containerName = "kandori-container";
 
 
 try {
-    $file = "4.mp4";
+    $file = "cat.mp4";
 
     // Upload blob.
     $content = fopen($file, "r");
