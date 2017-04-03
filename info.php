@@ -1,5 +1,7 @@
 hoge1
 hoge2
+
+
 <?php
 	echo "hoge3 \n";
 	
@@ -8,3 +10,5 @@ hoge2
 	echo $param1 . $param2;
 	
 ?>
+
+hoge5
