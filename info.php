@@ -1,8 +1,10 @@
+hoge1
+hoge2
 <?php
-	echo "foo bar \n";
+	echo "hoge3 \n";
 	
-	$param1="foo";
-	$param2="bar";
+	$param1="hoge4 ";
+	$param2="foo bar \n";
 	echo $param1 . $param2;
 	
 ?>
