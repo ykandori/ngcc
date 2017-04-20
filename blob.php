@@ -4,7 +4,7 @@ require_once 'vendor\autoload.php';
 use WindowsAzure\Common\ServicesBuilder;
 use WindowsAzure\Common\ServiceException;
 
-
+//hogege
 // Create blob REST proxy.
 //$connectionString = "DefaultEndpointsProtocol=https;AccountName=kandori;AccountKey=HEwEH9cG3Ta23zG6RuE4JrM5+ytzTqs/XjEO3qzJLqi9E+cCGkbSHYu60JB4TbcanO6JJ3oU/c0eEVDVJjWrBQ==;EndpointSuffix=core.windows.net";
 $connectionString = "DefaultEndpointsProtocol=https;AccountName=kandori;AccountKey=HEwEH9cG3Ta23zG6RuE4JrM5+ytzTqs/XjEO3qzJLqi9E+cCGkbSHYu60JB4TbcanO6JJ3oU/c0eEVDVJjWrBQ==";
